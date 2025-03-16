@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Historias - Magic Lore Blog{% endblock %}
+
+{% block content %}
+    <h2>Historias Publicadas</h2>
+    {% for articulo in articulos %}
+        <h3>{{ articulo.titulo }}</h3>
+        <h4>Por {{ articulo.autor }}</h4>
+        <p>{{ articulo.contenido }}</p>
+        <hr>
+    {% endfor %}
+{% endblock %}
