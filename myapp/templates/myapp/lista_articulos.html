@@ -6,17 +6,17 @@
     <h2>Historias publicadas</h2>
 
     {% for articulo in articulos %}
-        <div>
-            <h3><a href="{% url 'detalle_articulo' articulo.pk %}">{{ articulo.titulo }}</a></h3>
-            <p>{{ articulo.contenido|truncatewords:25 }}</p>
-            <small>Publicado por: {{ articulo.autor.usuario.username }}</small>
-        </div>
-    {% empty %}
-        <p>No hay artículos publicados aún.</p>
-    {% endfor %}
+    <div style="margin-bottom: 30px; padding-bottom: 10px; border-bottom: 1px solid #ccc;">
+        <h3><a href="{% url 'detalle_articulo' articulo.pk %}">{{ articulo.titulo }}</a></h3>
 
-    {% if user.is_authenticated %}
-        <p><a href="{% url 'crear_articulo' %}">Crear nueva historia</a></p>
-        <p><a href="{% url 'logout' %}">Cerrar sesión</a></p>
-    {% endif %}
+        {% if articulo.imagen %}
+            <img src="{{ articulo.imagen.url }}" alt="Imagen de {{ articulo.titulo }}" style="max-width: 300px; height: auto; display: block; margin-bottom: 10px;">
+        {% endif %}
+
+        <p>{{ articulo.contenido|truncatewords:25 }}</p>
+        <small>Publicado por: {{ articulo.autor.usuario.username }}</small>
+    </div>
+{% empty %}
+    <p>No hay artículos publicados aún.</p>
+{% endfor %}
 {% endblock %}
