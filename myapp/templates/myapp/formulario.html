@@ -3,28 +3,67 @@
 {% block title %}{{ accion }} artículo - Magic Lore Blog{% endblock %}
 
 {% block content %}
-<h2>{{ accion }} artículo</h2>
+<h2 style="text-align: center;">{{ accion }} artículo</h2>
 
-<form method="post" enctype="multipart/form-data" style="max-width: 600px;">
+<form method="post" enctype="multipart/form-data" style="max-width: 700px; margin: 0 auto;">
     {% csrf_token %}
 
     <div style="display: flex; flex-direction: column; gap: 15px;">
 
         {{ form.non_field_errors }}
 
-        {% for field in form %}
-            <div style="display: flex; flex-direction: column;">
-                <label style="font-weight: bold;" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {{ field }}
-                {% if field.help_text %}
-                    <small style="color: #666;">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                    <small style="color: red;">{{ error }}</small>
-                {% endfor %}
-            </div>
-        {% endfor %}
+        <!-- Título -->
+        <div style="display: flex; flex-direction: column;">
+            <label style="font-weight: bold;" for="{{ form.titulo.id_for_label }}">Título</label>
+            {{ form.titulo }}
+        </div>
 
+        <!-- Contenido -->
+        <div style="display: flex; flex-direction: column;">
+            <label style="font-weight: bold;" for="{{ form.contenido.id_for_label }}">Contenido</label>
+            {{ form.contenido }}
+        </div>
+
+        <!-- Categoría e Imagen en fila -->
+        <div style="display: flex; gap: 15px;">
+            <div style="flex: 1; display: flex; flex-direction: column;">
+                <label style="font-weight: bold;" for="{{ form.categoria_nombre.id_for_label }}">Categoría</label>
+                {{ form.categoria_nombre }}
+
+                <datalist id="lista_categorias">
+                    {% for cat in categorias %}
+                        <option value="{{ cat.nombre }}">
+                    {% endfor %}
+                </datalist>
+                <small style="color: #666;">Podés escribir una nueva o usar una existente.</small>
+            </div>
+
+            <div style="flex: 1; display: flex; flex-direction: column;">
+                <label style="font-weight: bold;" for="{{ form.imagen.id_for_label }}">Imagen</label>
+
+<!-- Campo input oculto -->
+<input type="file" name="imagen" id="{{ form.imagen.id_for_label }}" style="display: none;" onchange="mostrarNombreImagen(this)">
+
+<!-- Botón para activar el input -->
+<label for="{{ form.imagen.id_for_label }}" style="
+    background-color: #001f29;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    width: fit-content;
+">Cambiar imagen</label>
+
+<!-- Texto que muestra el nombre del archivo seleccionado -->
+<span id="nombre-imagen" style="margin-top: 5px; color: #444;"></span>
+
+            </div>
+        </div>
+
+        <!-- Botones -->
         <div style="display: flex; justify-content: flex-start; gap: 10px; margin-top: 20px;">
             <button type="submit" style="
                 padding: 10px 20px;
@@ -51,4 +90,14 @@
         </div>
     </div>
 </form>
+<script>
+    function mostrarNombreImagen(input) {
+        const span = document.getElementById("nombre-imagen");
+        if (input.files && input.files[0]) {
+            span.textContent = "Seleccionada: " + input.files[0].name;
+        } else {
+            span.textContent = "";
+        }
+    }
+    </script>
 {% endblock %}

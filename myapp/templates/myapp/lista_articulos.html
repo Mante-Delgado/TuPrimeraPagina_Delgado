@@ -3,20 +3,49 @@
 {% block title %}Historias - Magic Lore Blog{% endblock %}
 
 {% block content %}
-    <h2>Historias publicadas</h2>
+<h2 style="text-align: center;">Historias de Magic</h2>
 
+<div style="
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+">
     {% for articulo in articulos %}
-    <div style="margin-bottom: 30px; padding-bottom: 10px; border-bottom: 1px solid #ccc;">
-        <h3><a href="{% url 'detalle_articulo' articulo.pk %}">{{ articulo.titulo }}</a></h3>
+        <a href="{% url 'detalle_articulo' pk=articulo.pk %}" style="
+            text-decoration: none;
+            color: inherit;
+        ">
+            <div style="
+                background-color: white;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                transition: transform 0.2s;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                
+                {% if articulo.imagen %}
+                    <img src="{{ articulo.imagen.url }}" alt="Imagen de {{ articulo.titulo }}" style="
+                        width: 100%;
+                        height: 180px;
+                        object-fit: cover;
+                    ">
+                {% endif %}
 
-        {% if articulo.imagen %}
-            <img src="{{ articulo.imagen.url }}" alt="Imagen de {{ articulo.titulo }}" style="max-width: 300px; height: auto; display: block; margin-bottom: 10px;">
-        {% endif %}
-
-        <p>{{ articulo.contenido|truncatewords:25 }}</p>
-        <small>Publicado por: {{ articulo.autor.usuario.username }}</small>
-    </div>
-{% empty %}
-    <p>No hay artículos publicados aún.</p>
-{% endfor %}
+                <div style="padding: 15px;">
+                    <h3>{{ articulo.titulo }}</h3>
+                    <p style="font-size: 0.9em; color: #666; margin: 5px 0;">
+                        {{ articulo.categoria.nombre }} — por {{ articulo.autor.usuario.username }}
+                    </p>
+                    <p style="font-size: 0.85em; color: #444;">
+                        {{ articulo.contenido|truncatewords:20 }}
+                    </p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
 {% endblock %}
