@@ -6,30 +6,75 @@
     <title>{% block title %}Magic Lore Blog{% endblock %}</title>
     <a href="{% url 'about' %}">Sobre el creador</a>
     <style>
-        body {
+       body {
             font-family: 'Montserrat', sans-serif;
             background-color: #eae9e9;
             color: #001f29;
             margin: 0;
             padding: 0;
         }
+
         nav {
             background-color: #001f29;
             color: white;
             padding: 10px;
-            text-align: center;
         }
-        nav a {
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-logo {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-links a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
             font-weight: bold;
         }
-        nav a:hover {
+
+        .nav-links a:hover {
             text-decoration: underline;
         }
+
+        .menu-toggle {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                padding-top: 10px;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+                color: white;
+            }
+        }
+
         .container {
-            width: 80%;
+            width: 90%;
+            max-width: 1000px;
             margin: auto;
             padding: 20px;
         }
@@ -37,12 +82,37 @@
 </head>
 <body>
     <nav>
-        <a href="{% url 'index' %}">Inicio</a>
-        <a href="{% url 'lista_articulos' %}">Historias</a>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="{% url 'index' %}" style="color: white;">Magic Lore Blog</a>
+            </div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="navLinks">
+                <a href="{% url 'index' %}">Inicio</a>
+                <a href="{% url 'lista_articulos' %}">Historias</a>
+                <a href="{% url 'about' %}">Sobre el creador</a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'crear_articulo' %}">Crear artículo</a>
+                    <a href="{% url 'logout' %}">Cerrar sesión</a>
+                    <span style="margin-left: auto; color: #ccc;">Hola, {{ user.username }} 👋</span>
+                {% else %}
+                    <a href="{% url 'login' %}">Iniciar sesión</a>
+                    <a href="{% url 'registro' %}">Registrarse</a>
+                {% endif %}
+            </div>
+        </div>
     </nav>
 
     <div class="container">
         {% block content %}{% endblock %}
     </div>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('show');
+        }
+    </script>
 </body>
 </html>
