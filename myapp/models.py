@@ -21,6 +21,7 @@ class Articulo(models.Model):
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
+    imagen = models.ImageField(upload_to='articulos/', null=True, blank=True)
 
     def __str__(self):
         return self.titulo
