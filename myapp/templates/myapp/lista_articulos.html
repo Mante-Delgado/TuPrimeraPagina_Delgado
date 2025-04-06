@@ -3,11 +3,20 @@
 {% block title %}Historias - Magic Lore Blog{% endblock %}
 
 {% block content %}
-    <h2>Historias Publicadas</h2>
+    <h2>Historias publicadas</h2>
+
     {% for articulo in articulos %}
-        <h3>{{ articulo.titulo }}</h3>
-        <h4>Por {{ articulo.autor }}</h4>
-        <p>{{ articulo.contenido }}</p>
-        <hr>
+        <div>
+            <h3><a href="{% url 'detalle_articulo' articulo.pk %}">{{ articulo.titulo }}</a></h3>
+            <p>{{ articulo.contenido|truncatewords:25 }}</p>
+            <small>Publicado por: {{ articulo.autor.usuario.username }}</small>
+        </div>
+    {% empty %}
+        <p>No hay artículos publicados aún.</p>
     {% endfor %}
+
+    {% if user.is_authenticated %}
+        <p><a href="{% url 'crear_articulo' %}">Crear nueva historia</a></p>
+        <p><a href="{% url 'logout' %}">Cerrar sesión</a></p>
+    {% endif %}
 {% endblock %}

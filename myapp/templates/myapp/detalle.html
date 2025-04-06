@@ -1,0 +1,18 @@
+{% extends 'proyecto/base.html' %}
+
+{% block title %}{{ articulo.titulo }} - Magic Lore Blog{% endblock %}
+
+{% block content %}
+    <h2>{{ articulo.titulo }}</h2>
+    <p>{{ articulo.contenido }}</p>
+    <p><strong>Categoría:</strong> {{ articulo.categoria }}</p>
+    <p><strong>Autor:</strong> {{ articulo.autor.usuario.username }}</p>
+
+    {% if request.user == articulo.autor.usuario %}
+        <p>
+            <a href="{% url 'editar_articulo' articulo.pk %}">Editar</a> |
+            <a href="{% url 'borrar_articulo' articulo.pk %}">Eliminar</a>
+        </p>
+    {% endif %}
+    <a href="{% url 'lista_articulos' %}">Volver a la lista</a>
+{% endblock %}
