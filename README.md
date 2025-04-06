@@ -2,9 +2,39 @@
 
 Alumno: Luis Delgado
 
-Se creeo un blog tomando el consejo de nuestro tutor, implemente contenido de lore de magic de gatherin ya que me gusta mucho, lo hice a modo de blog con que en la consigna indicaba de tenerlo encuenta para la entrega final. Es mas como un web para que personas puedan publicar resumenes de lore o generar sus propias historias para nuevas referencias.
+# Magic Lore Blog ✨🧙‍♂️
 
-De igual forma podria restructurarlo si amerita ya que impelemente por mi parte una app la cual con una base de dato en un archivo csv te permita pingiarlo usando una api de google. 
+Magic Lore Blog es una plataforma desarrollada con Django que permite a los usuarios crear, editar y compartir historias relacionadas con el universo de Magic: The Gathering. Es una aplicación pensada como proyecto de práctica, con un enfoque en el CRUD, autenticación de usuarios y diseño responsivo.
 
-Dejo esto como resumen de lo que fue la entrega. 
+---
 
+## Tecnologías utilizadas
+
+- Django 4.x
+- Python 3.x
+- HTML5 + CSS3 (estilos integrados)
+- Base de datos SQLite (por defecto)
+- Plantillas con herencia (`base.html`)
+
+---
+
+## Funcionalidades principales
+
+- Registro de usuarios con perfil extendido (`Autor`)
+- Iniciar y cerrar sesión
+- CRUD completo de artículos (crear, editar, ver, eliminar)
+- Clasificación por categorías
+- Vista detallada de cada historia
+- Página de bienvenida
+- Sección “Sobre el creador”
+- Diseño adaptado a móviles (navbar responsiva)
+
+---
+
+## 🚀 ¿Cómo ejecutar el proyecto?
+
+### 1. Clonar o descargar el repositorio
+
+```bash
+git clone https://github.com/Mante-Delgado/TuPrimeraPagina_Delgado.git
+cd TuPrimeraPagina_Delgado
