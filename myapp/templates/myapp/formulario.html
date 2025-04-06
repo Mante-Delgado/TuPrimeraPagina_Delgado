@@ -1,0 +1,13 @@
+{% extends 'proyecto/base.html' %}
+
+{% block title %}{{ accion }} artículo - Magic Lore Blog{% endblock %}
+
+{% block content %}
+    <h2>{{ accion }} artículo</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{{ accion }}</button>
+    </form>
+    <a href="{% url 'lista_articulos' %}">Cancelar</a>
+{% endblock %}
