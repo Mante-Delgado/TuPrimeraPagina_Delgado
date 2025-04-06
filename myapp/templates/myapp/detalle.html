@@ -1,7 +1,9 @@
 {% extends 'proyecto/base.html' %}
 
 {% block title %}{{ articulo.titulo }} - Magic Lore Blog{% endblock %}
-
+{% if articulo.imagen %}
+    <img src="{{ articulo.imagen.url }}" alt="Imagen del artículo" style="max-width: 100%; height: auto;">
+{% endif %}
 {% block content %}
     <h2>{{ articulo.titulo }}</h2>
     <p>{{ articulo.contenido }}</p>

@@ -14,4 +14,4 @@ class RegistroForm(UserCreationForm):
 class ArticuloForm(forms.ModelForm):
     class Meta:
         model = Articulo
-        fields = ['titulo', 'contenido', 'categoria']
+        fields = ['titulo', 'contenido', 'categoria', 'imagen'] 
